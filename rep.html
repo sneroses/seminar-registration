@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seminar Registration</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg,#134e5e,#0c7b93);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    color:white;
+}
+
+/* Floating background */
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    animation: float 8s infinite ease-in-out;
+}
+.circle:nth-child(1){width:200px;height:200px;top:10%;left:5%;}
+.circle:nth-child(2){width:150px;height:150px;bottom:10%;right:10%;}
+.circle:nth-child(3){width:100px;height:100px;top:65%;left:75%;}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-20px);}
+}
+
+/* Card */
+.container{
+    width:90%;
+    max-width:500px;
+    padding:40px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    text-align:center;
+    animation: pop 0.8s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(0.8);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+h1{margin-bottom:10px;}
+.subtitle{font-size:14px;margin-bottom:20px;color:#eee;}
+
+.ai-gif{
+    width:120px;
+    margin-bottom:15px;
+}
+
+/* Form */
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    transition:0.4s;
+}
+
+input{
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:rgba(255,255,255,0.2);
+    color:white;
+    outline:none;
+}
+
+input::placeholder{color:#eee;}
+
+button{
+    padding:12px;
+    border:none;
+    border-radius:25px;
+    background:linear-gradient(45deg,#00ffb3,#00c9a7);
+    font-weight:600;
+    cursor:pointer;
+}
+
+.success{
+    display:none;
+    margin-top:20px;
+    animation: pop 0.6s ease;
+    color:#00ffcc;
+    font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="container">
+
+<img src="https://media.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif" 
+class="ai-gif">
+
+<h1>DATA SCIENCE SEMINAR</h1>
+<div class="subtitle">Transforming College Learning & Research</div>
+
+<form id="registerForm">
+<input type="text" placeholder="Full Name" required>
+<input type="email" placeholder="Email Address" required>
+<input type="tel" placeholder="Phone Number" required>
+<input type="text" placeholder="College / Department" required>
+<button type="submit">Register Now</button>
+</form>
+
+<div class="success" id="successMsg">
+🎉 Successfully Registered! See you at the seminar.
+</div>
+
+</div>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e){
+    e.preventDefault();  // stops page reload
+
+    const form = document.getElementById("registerForm");
+    const success = document.getElementById("successMsg");
+
+    form.style.display = "none";   // hide form
+    success.style.display = "block";  // show success
+
+    createConfetti();
+});
+
+/* Confetti */
+function createConfetti(){
+for(let i=0;i<30;i++){
+let confetti=document.createElement("div");
+confetti.style.position="absolute";
+confetti.style.width="8px";
+confetti.style.height="8px";
+confetti.style.backgroundColor=
+"hsl("+Math.random()*360+",100%,50%)";
+confetti.style.top="50%";
+confetti.style.left="50%";
+confetti.style.borderRadius="50%";
+document.body.appendChild(confetti);
+
+let angle=Math.random()*2*Math.PI;
+let distance=Math.random()*300;
+
+confetti.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${Math.cos(angle)*distance}px,
+${Math.sin(angle)*distance}px)`,opacity:0}
+],{duration:1500,easing:"ease-out"});
+
+setTimeout(()=>confetti.remove(),1500);
+}
+}
+</script>
+
+</body>
+</html>
